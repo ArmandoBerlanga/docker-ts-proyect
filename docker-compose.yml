@@ -32,6 +32,20 @@ services:
                 aliases:
                     - database_host
 
+    frontend:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        container_name: frontend
+        ports:
+            - "8080:80"
+        networks:
+            app-network:
+                aliases:
+                    - frontend_host
+        links:
+            - backend
+
 networks:
     app-network:
         name: app-net
