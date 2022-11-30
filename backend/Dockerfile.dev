@@ -1,10 +1,12 @@
 FROM node:14.17.0-alpine3.13
 
-RUN npm i -g nodemon
 RUN mkdir -p /home/backend
-
 WORKDIR /home/backend
+
+COPY package*.json .
+
+RUN npm install
 
 EXPOSE 5001
 
-CMD ["nodemon", "src/index.js"]
+CMD ["npm", "run", "dev"]

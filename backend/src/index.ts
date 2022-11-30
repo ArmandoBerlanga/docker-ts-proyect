@@ -8,7 +8,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-const PORT = 5001
+const PORT = process.env.PORT || 5001
 const app = express()
 
 // middleware
@@ -16,7 +16,7 @@ app.use(express.json())
 // ...
 
 // routes
-app.get('/', (_req, res) => res.json({ message: 'TS-API!' }))
+app.get('/', (_req, res) => res.json({ message: 'Bienvenido a la API TS!' }))
 app.use('/api', utilsRoute)
 app.use('/api/diaries', diariesRoute)
 // ...

@@ -2,6 +2,9 @@ import { Express } from 'express'
 import swaggerJsDoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
 import { version } from '../../package.json'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const options: swaggerJsDoc.Options = {
     definition: {
@@ -13,7 +16,7 @@ const options: swaggerJsDoc.Options = {
         },
         servers: [
             {
-                url: 'http://localhost:3000'
+                url: 'http://localhost:' + process.env.PORT
             }
         ],
         components: {
@@ -32,8 +35,8 @@ const options: swaggerJsDoc.Options = {
         }
     },
     apis: [
-        './src/types/utils.d.ts', 
-        './src/types/diary/diary-types.d.ts', 
+        './src/types/utils.d.ts',
+        './src/types/diary/diary-types.d.ts',
         './src/routes/*.ts'
     ]
 }

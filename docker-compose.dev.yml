@@ -1,22 +1,52 @@
 version: '3.9'
 
 services:
-    backend:
+    backend-dev:
         build:
             context: ./backend
             dockerfile: Dockerfile.dev
-        container_name: backend-dev
+        container_name: backend_dev
+        env_file:
+            - ./backend/.env
         ports:
             - "5001:5001"
         volumes:
-            - ./backend/build:/home/backend
+            - ./backend:/home/backend
         networks:
             app-network:
                 aliases:
-                    - backend_host_dev
+                    - backend_host
+        links:
+            - database-dev
 
-volumes:
-    backend:
+    database-dev:
+        image: mcr.microsoft.com/mssql/server:latest
+        container_name: database_dev
+        environment:
+            - ACCEPT_EULA=Y
+            - MSSQL_SA_PASSWORD=Pass123*
+        ports:
+            - "1433:1433"
+        volumes:
+            - ./database/dev:/var/opt/mssql
+        networks:
+            app-network:
+                aliases:
+                    - database_host
+
+    # frontend:
+    #     build:
+    #         context: ./frontend
+    #         dockerfile: Dockerfile
+    #     container_name: frontend_dev
+    #     ports:
+    #         - "8080:80"
+    #     networks:
+    #         app-network:
+    #             aliases:
+    #                 - frontend_host
+    #     links:
+    #         - backend
 
 networks:
     app-network:
