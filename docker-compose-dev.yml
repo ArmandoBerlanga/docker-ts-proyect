@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+    backend:
+        build:
+            context: ./backend
+            dockerfile: Dockerfile.dev
+        container_name: backend-dev
+        ports:
+            - "5001:5001"
+        volumes:
+            - ./backend/build:/home/backend
+        networks:
+            app-network:
+                aliases:
+                    - backend_host_dev
+
+volumes:
+    backend:
+
+networks:
+    app-network:
+        name: app-net-dev
+        driver: bridge
+        ipam:
+            driver: default
