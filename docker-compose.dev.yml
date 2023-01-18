@@ -6,8 +6,6 @@ services:
             context: ./backend
             dockerfile: Dockerfile.dev
         container_name: backend_dev
-        env_file:
-            - ./backend/.env
         ports:
             - "5001:5001"
         volumes:
@@ -34,19 +32,21 @@ services:
                 aliases:
                     - database_host
 
-    # frontend:
-    #     build:
-    #         context: ./frontend
-    #         dockerfile: Dockerfile
-    #     container_name: frontend_dev
-    #     ports:
-    #         - "8080:80"
-    #     networks:
-    #         app-network:
-    #             aliases:
-    #                 - frontend_host
-    #     links:
-    #         - backend
+    frontend-dev:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile.dev
+        container_name: frontend_dev
+        ports:
+            - "8080:8080"
+        volumes:
+            - ./frontend:/home/frontend
+        networks:
+            app-network:
+                aliases:
+                    - frontend_host
+        links:
+            - backend-dev
 
 networks:
     app-network:

@@ -1,0 +1,15 @@
+FROM node:14.17.0-alpine3.13
+
+RUN mkdir -p /home/frontend
+WORKDIR /home/frontend
+
+COPY package*.json .
+
+RUN npm install
+RUN npm install -g @quasar/cli
+
+COPY . .
+
+EXPOSE 8080
+
+CMD ["quasar", "dev"]

@@ -1,3 +1,9 @@
-Dockerfile
-Dockerfile.dev
-node_modules
+backend/Dockerfile
+backend/Dockerfile.dev
+backend/node_modules
+
+frontend/Dockerfile
+frontend/Dockerfile.dev
+frontend/node_modules
+frontend/.quasar
+frontend/.vscode
